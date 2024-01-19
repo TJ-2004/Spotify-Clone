@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Spotify</title>
+    <title>Spotify - Web Player: Music for everyone</title>
     <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="./utility.css" />
   </head>
@@ -13,7 +13,12 @@
       <div class="left">
         <div class="home bg-grey rounded m-1 p-1">
           <div class="logo">
-            <img class="invert" src="logo.svg" alt="Spotify_Logo" />
+            <img
+              width="110px"
+              class="invert"
+              src="logo.svg"
+              alt="Spotify_Logo"
+            />
           </div>
           <ul>
             <li><img class="invert" src="home.svg" alt="Home" />Home</li>
@@ -25,6 +30,10 @@
           <div class="heading">
             <img class="invert" src="playlist.svg" alt="playlist" />
             <h2>Your Library</h2>
+          </div>
+
+          <div class="songList">
+            <ul></ul>
           </div>
           <div class="footer">
             <div>
@@ -149,6 +158,20 @@
               />
               <h2>lofi beats</h2>
               <p>chill beats, lofi vibes, new tracks every week...</p>
+            </div>
+          </div>
+          <div class="playbar">
+            <div class="seekbar">
+              <div class="circle"></div>
+            </div>
+            <div class="minibar">
+              <div class="songinfo"></div>
+              <div class="songbuttons">
+                <img id="previous" src="prevsong.svg" alt="prevsong" />
+                <img id="play" src="play.svg" alt="play" />
+                <img id="next" src="nextsong.svg" alt="nextsong" />
+              </div>
+              <div class="songtime"></div>
             </div>
           </div>
         </div>
