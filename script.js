@@ -1,8 +1,11 @@
-console.log("Lets Write Some Javascript");
 let currentSong = new Audio();
+let songs;
 
 function totalSecondsToMMSS(totalSeconds) {
   // Calculate the number of minutes without the decimal part
+  if (isNaN(totalSeconds) || totalSeconds < 0) {
+    return "00:00";
+  }
   var minutes = Math.floor(totalSeconds / 60);
 
   // Calculate the remaining seconds without the decimal part
@@ -21,7 +24,6 @@ function totalSecondsToMMSS(totalSeconds) {
 async function getSongs() {
   let a = await fetch("http://127.0.0.1:3000/songs/");
   let response = await a.text();
-  console.log(response);
   let div = document.createElement("div");
   div.innerHTML = response;
   let as = div.getElementsByTagName("a");
@@ -45,9 +47,8 @@ const playMusic = (track, pause = false) => {
   document.querySelector(".songtime").innerHTML = "00:00/00:00";
 };
 async function main() {
-  let songs = await getSongs();
+  songs = await getSongs();
   playMusic(songs[0], true);
-  console.log(songs);
   //Show All The Song In The Playlists
 
   let songUL = document
@@ -74,7 +75,6 @@ async function main() {
     document.querySelector(".songList").getElementsByTagName("li")
   ).forEach((e) => {
     e.addEventListener("click", (element) => {
-      console.log(e.querySelector(".info").firstElementChild.innerHTML);
       playMusic(e.querySelector(".info").firstElementChild.innerHTML.trim());
     });
   });
@@ -93,7 +93,6 @@ async function main() {
   //Getting info of song
 
   currentSong.addEventListener("timeupdate", () => {
-    console.log(currentSong.currentTime, currentSong.duration);
     document.querySelector(".songtime").innerHTML = `${totalSecondsToMMSS(
       currentSong.currentTime
     )} / ${totalSecondsToMMSS(currentSong.duration)}`;
@@ -116,6 +115,27 @@ async function main() {
   });
 
   //Add Event Listener to prev and next
+  previous.addEventListener("click", () => {
+    currentSong.pause();
+    console.log("Previous Clicked");
+    let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
+    if (index - 1 >= 0) playMusic(songs[index - 1]);
+  });
+  next.addEventListener("click", () => {
+    currentSong.pause();
+    console.log("Next Clicked");
+    let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
+    if (index + 1 < songs.length) playMusic(songs[index + 1]);
+  });
+
+  //Add event to volume
+  document
+    .querySelector(".range")
+    .getElementsByTagName("input")[0]
+    .addEventListener("change", (e) => {
+      console.log("Setting Volume to", e.target.value, "/ 100");
+      currentSong.volume = parseInt(e.target.value) / 100;
+    });
 }
 
 main();
