@@ -96,7 +96,8 @@ async function displayAlbum() {
     for (let index = 0; index < array.length; index++) {
       const e = array[index];
 
-    if (e.href.includes("/songs")) {
+
+    if (e.href.includes("/songs") && !e.href.includes(".htaccess")) {
       let folder = e.href.split("/").slice(-2)[0];
       //Get the metadata of each folder
       let a = await fetch(`songs/${folder}/info.json`);
