@@ -85,7 +85,7 @@ const playMusic = (track, pause = false) => {
 };
 
 async function displayAlbum() {
-  let a = await fetch(`songs/`);
+  let a = await fetch(`/songs/`);
   let response = await a.text();
   let div = document.createElement("div");
   div.innerHTML = response;
@@ -100,7 +100,7 @@ async function displayAlbum() {
     if (e.href.includes("/songs") && !e.href.includes(".htaccess")) {
       let folder = e.href.split("/").slice(-2)[0];
       //Get the metadata of each folder
-      let a = await fetch(`songs/${folder}/info.json`);
+      let a = await fetch(`/songs/${folder}/info.json`);
       let response = await a.json();
       //console.log(response);
 
